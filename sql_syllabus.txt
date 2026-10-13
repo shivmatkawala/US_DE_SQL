@@ -1,0 +1,396 @@
+1) download and install ms sql server and ssms:
+
+	step1: Visit Official Website:
+		https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+
+	step2: Select an Edition:
+		SQL Server Developer (free for development and testing).
+
+	step3: Download:
+		Click the download link for the choose standard edition.
+
+	step4: Install SQL Server:
+		1) Run the Installer
+
+		2) Choose Installation Type:
+			Basic: Quick installation with default configurations.
+
+		3)Accept the License Terms:
+			Read and accept the terms to proceed.
+
+		4)Choose Installation Location (if applicable):
+
+		5)Configure the Server:
+			Windows Authentication: Uses your Windows credentials.
+
+		6) Finish the Installation:
+			Complete the setup process and take note of any instance names or configuration details.
+
+	step5: Download SSMS:
+		1)Go to the SSMS Download Page:
+			https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16
+
+		2) Download the Installer:
+			Click the download link for the latest version of SSMS.
+
+	step6: Install SSMS
+		1) Run the SSMS Installer:
+			Double-click the downloaded file (e.g., SSMS-Setup-ENU.exe).
+
+		2) Follow the Setup Wizard:
+			Click Install to begin.
+			The installer will download and install all required components.
+		3) Finish Installation:
+			Once completed, click Close.
+
+
+	step7: Verify Installation
+		1) Launch SQL Server:
+			Open SQL Server Configuration Manager and ensure the SQL Server service is running.
+
+		2) Launch SSMS:
+			Open SSMS and connect to your SQL Server instance.
+				Use the server name:
+				For a default instance: localhost or .
+
+		3) Test a Query:
+			Create a new database or run a simple query like SELECT @@VERSION to verify everything is working.
+
+
+###############################################################################################################################################
+
+
+2) How SQL Server Works in computer/server/machine
+
+	1) what is SQL
+		def of sql by ANSI:
+			SQL is a standardized language used to communicate with and manage relational database management systems (RDBMS). It is designed to 			perform various operations like querying, updating, inserting, deleting data, and defining data structures and permissions.
+
+
+	3) what is sql engine:
+		An SQL engine is the part of a database management system (DBMS) that processes SQL queries. It interprets, executes, and optimizes your SQL 		commands to interact with the database, such as retrieving, updating, or managing data.
+
+		Think of it as the "brain" of the DBMS that translates your SQL commands into actions on the database.
+
+
+
+	4) what is ssms:
+		SSMS (SQL Server Management Studio) is a tool developed by Microsoft that provides a graphical interface to manage, configure, and interact 		with SQL Server databases.
+
+
+	5) what is database:
+		A database is an organized collection of data stored electronically, making it easy to access, manage, and update.
+
+		It allows you to store information (like records, files, or tables) and retrieve it efficiently whenever needed. Think of it as a digital 		filing cabinet for structured data.
+
+	6) what is schema
+		A schema is the blueprint or structure of a database. It defines how data is organized, including:
+			1)Tables
+			2Columns and their data types
+			3)Relationships between tables
+			4)Constraints (like primary keys, foreign keys)
+
+		In simple terms, it's the layout or framework that describes how the database is set up.
+
+	7) what is table:
+		A table in a database is a structure used to store data in rows and columns, similar to a spreadsheet.
+			Rows represent individual records.
+			Columns represent the fields or attributes of the data.
+
+		For example, a table for employees might have columns like Name, Age, and Salary, with each row containing data for one employee.
+
+
+	8) what is column, row and record:
+		Column: A vertical field in a table, representing a specific attribute (e.g., Name, Age).
+
+		Row: A horizontal line in a table, representing a single entry of data.
+
+		Record: A single, complete set of data (same as a row) for one entity (e.g., one employee's details).
+
+	10) data types:
+		INT: Stores whole numbers (e.g., 1, 100, -50).
+
+		FLOAT: Stores approximate numeric values with floating-point precision (e.g., 3.14, 2.5).  
+
+		DECIMAL (or NUMERIC): Stores fixed-point numbers with defined precision and scale (e.g., 123.45).
+
+		CHAR: Stores fixed-length character strings (e.g., 'ABC'). Typically used for short text of fixed length.
+		
+		NVARCHAR: Stores variable-length character strings, Non-Unicode (UTF-8) (e.g., '')
+
+		VARCHAR: Stores variable-length character strings, Non-Unicode (ASCII) (e.g., 'Hello World').
+
+		TEXT: Stores large variable-length text data (up to 2GB).    # Being Scraped
+
+		DATE: Stores date values (e.g., '2025-01-21').
+
+		TIME: Stores time values (e.g., '14:30:00').
+
+		DATETIME: Stores both date and time values (e.g., '2025-01-21 14:30:00').
+
+		BIT: Stores binary values (0 or 1) to represent Boolean (True/False).
+
+		BINARY: Stores fixed-length binary data (e.g., for images or files).
+
+		MONEY: Stores monetary values with four decimal places.
+
+		UNIQUEIDENTIFIER: Stores globally unique identifiers (GUIDs).
+
+		XML: Stores XML formatted data.   # Being Scraped
+
+**************************************************************************************************************************************
+
+
+3) creating database:
+	create database databaseName;
+
+	To use the database:
+		use databaseName;
+
+
+4) creating table
+	create table tableName(
+		column1 datatype constraint,
+		column2 datatype constraint
+	);
+
+5) inserting data into table
+	insert into table tableName(column1, column2, ...)
+	values(value1, value2, ....);
+
+
+6) adding a new column to existing table
+	alter table tableName
+	add columnName datatype;
+
+	adding new column with default value
+		alter table tableName
+		add columnName datatype DEFAULT value       ----> default value will be applied only for newly added records existing records have null only
+
+
+	changing null to default value existing records
+		update tableName
+		set columnName = value
+		where columnName is null;
+
+	
+
+7) dropping specific column from table
+	alter table tableName
+	drop column columnName;
+
+8) deleting specific record from table
+	delete from table_name
+	where condition;
+
+9) dropping tables from database
+	drop table tableName;
+
+10) dropping database
+	drop database databaseName;
+
+11) renaming database
+	First set databse to single user:
+		alter database databaseName
+		set single_user with rollback immediate;
+
+		alter databse old_databaseName
+		modify name = new_databaseName;
+
+	setting back database to multi user:
+		alter database databaseName
+		set multi_user
+
+
+12) renaming table
+	EXEC sp_rename 'old_table_name', 'new_table_name';
+
+13) renaming column
+	EXEC sp_rename 'table_name.old_column_name', 'new_column_name';
+	
+14) updating record
+	UPDATE table_name
+	SET column_name = new_value
+	WHERE condition;
+
+
+
+15) selecting all columns from table
+	select * from tableName;
+
+16) selecting specific columns from table.
+	select columnName from tableName;
+
+17) selecting distinct values from a specific column
+	SELECT DISTINCT column_name
+	FROM table_name;
+
+18) filtering records with the help of 'where' clause
+	SELECT column_name(s)
+	FROM table_name
+	WHERE condition;
+	
+
+19) sorting result-set with the help of 'order by' keyword
+	SELECT column_name(s)
+	FROM table_name
+	ORDER BY column_name [ASC|DESC];
+
+20) filtering records with the help of 'where' clause and operators(AND, OR, NOT)
+	SELECT column_name(s)
+	FROM table_name
+	WHERE condition1 AND|OR|NOT condition2;
+
+
+21) to get number of records as result-set using 'select top' clause
+	SELECT TOP (number) column_name(s)
+	FROM table_name;
+
+
+21) aggregate functions in SQL:
+	1)MIN
+		SELECT MIN(column_name)
+		FROM table_name;
+
+	2)MAX
+		SELECT MAX(column_name)
+		FROM table_name;
+
+	3)COUNT -->(returns only non null)
+		SELECT COUNT(column_name)
+		FROM table_name;
+
+	4)SUM
+		SELECT SUM(column_name)
+		FROM table_name;
+
+	5)AVG
+		
+
+
+22) Using 'LIKE' operator with conjunction of wildcards to search for specified pattern in column
+
+23) wildcards to search for specified pattern in column
+	SQL Wildcard Characters
+		A wildcard character is used to substitute one or more characters in a string.
+
+		Wildcard characters are used with the LIKE operator. The LIKE operator is used in a WHERE clause to search 
+		for a specified pattern in a column.
+
+		%	Represents zero or more characters
+
+		_	Represents a single character
+
+		[]	Represents any single character within the brackets *
+
+		^	Represents any character not in the brackets *
+
+		-	Represents any single character within the specified range *
+
+		{}	Represents any escaped character **
+
+
+	1) Searching for names that start with a specific letter
+			SELECT * FROM Employees WHERE FirstName LIKE 'A%';
+
+
+	2) Searching for names that end with a specific letter
+			SELECT * FROM Employees WHERE FirstName LIKE '%n';
+
+
+	3) Searching for names that contain a specific pattern
+			SELECT * FROM Employees WHERE FirstName LIKE '%ar%';
+
+
+	4) Searching for names that have a specific letter at a specific position
+			SELECT * FROM Employees WHERE FirstName LIKE '_a%';
+
+	5) Searching for names with a specific set of starting letters
+			SELECT * FROM Employees WHERE FirstName LIKE '[AB]%';
+
+	6) Searching for names that do NOT start with specific letters
+			SELECT * FROM Employees WHERE FirstName LIKE '[^AB]%';
+
+	
+	7) Searching for names with specific characters in a specific position
+			SELECT * FROM Employees WHERE FirstName LIKE 'J[ao]n';
+
+	
+	8) Searching for names in a specific alphabetical range
+			SELECT * FROM Employees WHERE FirstName LIKE '[C-F]%';
+
+	
+	9) Searching for phone numbers with a specific format
+			SELECT * FROM Customers WHERE Phone LIKE '555-____';
+
+
+	10) Searching for email addresses in a specific domain
+			SELECT * FROM Customers WHERE Email LIKE '%@gmail.com';
+
+
+	11) Using Wildcards with NOT LIKE
+			SELECT * FROM Employees WHERE FirstName NOT LIKE 'A%';
+
+
+
+
+
+24) Using 'IN' with 'where' clause
+
+25) Using 'BETWEEN' with 'where' clause
+
+26) Creating aliases with the help of 'as' keyword
+
+
+27) joins:
+	1) inner join:-
+
+		JOIN and INNER JOIN will return the same result.
+		INNER is the default join type for JOIN, so when you write JOIN the parser actually writes INNER JOIN.
+
+
+	2) left join
+
+	3) right join
+
+	4) full join
+
+	5) self join
+
+28) Union
+
+29) Group By
+
+30) Having
+
+31) Exists
+
+32) 'select into'
+
+33)'insert into select'
+
+34) case
+
+35) null functions
+
+36) comments
+
+37) operators:
+	1) Arithmetic Operators
+	2) Bitwise Operators
+	3) comparison operators
+	4) compound operators
+	5) logical operators
+
+38)constraints:
+	1) NOT NULL
+	2) UNIQUE
+	3) PRIMARY KEY
+	4) FOREIGN KEY
+	5) CHECK 
+	6) DEFAULT
+	7) CREATE INDEX
+	8) IDENTITY
+	
+39) VIEWS
+
